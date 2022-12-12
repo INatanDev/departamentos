@@ -9,8 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.facul.curso.web.dao.CargoDao;
 import com.facul.curso.web.domain.Cargo;
 
-
-
 @Service @Transactional(readOnly = false)
 public class CargoServiceImpl implements CargoService {
 	
