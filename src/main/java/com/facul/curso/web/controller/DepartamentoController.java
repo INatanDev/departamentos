@@ -13,6 +13,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.facul.curso.web.domain.Departamento;
 import com.facul.curso.web.service.DepartamentoService;
 
+import javax.validation.Valid;
+
 @Controller
 @RequestMapping("/departamentos")
 public class DepartamentoController {

@@ -1,6 +1,14 @@
 package com.facul.curso.web.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -15,17 +23,17 @@ public class Funcionario extends AbstractEntity<Long> {
 	private String nome;
 	
 	@NotNull
-	@NumberFormat(style = Style.CURRENCY, pattern = "#,##0.00")
+	@NumberFormat(style = NumberFormat.Style.CURRENCY, pattern = "#,##0.00")
 	@Column(nullable = false, columnDefinition = "DECIMAL(7,2) DEFAULT 0.00")
 	private BigDecimal salario;
 	
 	@NotNull
 	@PastOrPresent(message = "{PastOrPresent.funcionario.dataEntrada}")
-	@DateTimeFormat(iso = ISO.DATE, pattern = "")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "")
 	@Column(name= "data_entrada", nullable = false, columnDefinition = "DATE")
 	private LocalDate dataEntrada;
 	
-	@DateTimeFormat(iso = ISO.DATE)
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	@Column(name = "data_saida", columnDefinition = "DATE")
 	private LocalDate dataSaida;
 	

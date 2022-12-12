@@ -18,6 +18,8 @@ import com.facul.curso.web.domain.Departamento;
 import com.facul.curso.web.service.CargoService;
 import com.facul.curso.web.service.DepartamentoService;
 
+import javax.validation.Valid;
+
 @Controller
 @RequestMapping("/cargos")
 public class CargoController {
