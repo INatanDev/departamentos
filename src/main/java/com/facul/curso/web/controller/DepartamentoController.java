@@ -3,6 +3,7 @@ package com.facul.curso.web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +14,7 @@ import com.facul.curso.web.domain.Departamento;
 import com.facul.curso.web.service.DepartamentoService;
 
 @Controller
-@RequestMapping ("/departamentos")
+@RequestMapping("/departamentos")
 public class DepartamentoController {
 	
 	@Autowired
@@ -21,17 +22,22 @@ public class DepartamentoController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(Departamento departamento) {
-		return "/departamento/cadastro";
+		return "departamento/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("departamentos", service.buscarTodos());
-		return "/departamento/lista"; 
+		return "departamento/lista"; 
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(Departamento departamento, RedirectAttributes attr) {
+	public String salvar(@Valid Departamento departamento, BindingResult result, RedirectAttributes attr) {
+		
+		if (result.hasErrors()) {
+			return "departamento/cadastro";
+		}
+		
 		service.salvar(departamento);
 		attr.addFlashAttribute("success", "Departamento inserido com sucesso.");
 		return "redirect:/departamentos/cadastrar";
@@ -40,11 +46,16 @@ public class DepartamentoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("departamento", service.buscarPorId(id));
-		return "/departamento/cadastro";
+		return "departamento/cadastro";
 	}
 	
 	@PostMapping("/editar")
-	public String editar(Departamento departamento, RedirectAttributes attr) {
+	public String editar(@Valid Departamento departamento, BindingResult result, RedirectAttributes attr) {
+		
+		if (result.hasErrors()) {
+			return "departamento/cadastro";
+		}
+		
 		service.editar(departamento);
 		attr.addFlashAttribute("success", "Departamento editado com sucesso.");
 		return "redirect:/departamentos/cadastrar";
@@ -53,7 +64,7 @@ public class DepartamentoController {
 	@GetMapping("/excluir/{id}")
 	public String excluir(@PathVariable("id") Long id, ModelMap model) {
 		
-		if (service.depertamentoTemCargos(id)) {
+		if (service.departamentoTemCargos(id)) {
 			model.addAttribute("fail", "Departamento não removido. Possui cargo(s) vinculado(s).");
 		} else {
 			service.excluir(id);
@@ -62,5 +73,6 @@ public class DepartamentoController {
 		
 		return listar(model);
 	}
+	
 	
 }

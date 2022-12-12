@@ -16,3 +16,4 @@ public interface CargoDao {
 
     List<Cargo> findAll();
 }
+
