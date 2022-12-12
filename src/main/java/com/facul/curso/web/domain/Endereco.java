@@ -1,10 +1,6 @@
 package com.facul.curso.web.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Table;
+import javax.persistence.*;
 
 @SuppressWarnings("serial")
 @Entity
