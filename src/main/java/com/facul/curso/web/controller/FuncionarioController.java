@@ -25,7 +25,7 @@ import com.facul.curso.web.domain.Funcionario;
 import com.facul.curso.web.domain.UF;
 import com.facul.curso.web.service.CargoService;
 import com.facul.curso.web.service.FuncionarioService;
-import com.mballem.curso.boot.web.validator.FuncionarioValidator;
+import com.facul.curso.web.validator.FuncionarioValidator;
 
 @Controller
 @RequestMapping("/funcionarios")
